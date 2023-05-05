@@ -148,12 +148,15 @@ namespace EasyCashIdentityProject.DataAccessLayer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<decimal>("CustomerAccountAccountBalance")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("CustomerAccountBankBranch")
+                    b.Property<string>("BankBranch")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("CustomerAccountAccountBalance")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("CustomerAccountCurrency")
                         .IsRequired()
@@ -164,6 +167,8 @@ namespace EasyCashIdentityProject.DataAccessLayer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("CustomerAccounts");
                 });
@@ -294,6 +299,17 @@ namespace EasyCashIdentityProject.DataAccessLayer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("EasyCashIdentityProject.EntityLayer.Concrete.CustomerAccount", b =>
+                {
+                    b.HasOne("EasyCashIdentityProject.EntityLayer.Concrete.AppUser", "AppUser")
+                        .WithMany("CustomerAccounts")
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("EasyCashIdentityProject.EntityLayer.Concrete.AppRole", null)
@@ -343,6 +359,11 @@ namespace EasyCashIdentityProject.DataAccessLayer.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EasyCashIdentityProject.EntityLayer.Concrete.AppUser", b =>
+                {
+                    b.Navigation("CustomerAccounts");
                 });
 #pragma warning restore 612, 618
         }

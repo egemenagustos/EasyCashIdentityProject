@@ -13,7 +13,7 @@ namespace EasyCashIdentityProject.DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=EGEMEN\\SQLEXPRESS; User ID=sa; Password=1; database=EasyCashDb");
+            optionsBuilder.UseSqlServer("server=DESKTOP-B847571; User ID=sa; Password=1; database=EasyCashDb");
         }
         public DbSet<CustomerAccount> CustomerAccounts { get; set; }
 
