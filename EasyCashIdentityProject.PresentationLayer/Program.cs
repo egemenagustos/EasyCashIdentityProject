@@ -1,5 +1,6 @@
 using EasyCashIdentityProject.DataAccessLayer.Concrete;
 using EasyCashIdentityProject.EntityLayer.Concrete;
+using EasyCashIdentityProject.PresentationLayer.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<Context>();
-builder.Services.AddIdentity<AppUser,AppRole>().AddEntityFrameworkStores<Context>();
+builder.Services.AddIdentity<AppUser,AppRole>().AddErrorDescriber<CustomerIdentityValidator>().AddEntityFrameworkStores<Context>();
 
 var app = builder.Build();
 
