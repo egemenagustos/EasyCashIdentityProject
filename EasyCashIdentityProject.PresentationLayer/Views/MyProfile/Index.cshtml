@@ -4,31 +4,40 @@
 }
 
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
+
 @await Component.InvokeAsync("_CustomerLayoutHeaderPartial")
 
-<body class="nav-md">
+<body class="nav-md footer_fixed">
     <div class="container body">
         <div class="main_container">
-            <div class="col-md-3 left_col menu_fixed">
-                @await Component.InvokeAsync("_CustomerLayoutSidebarPartial")
-            </div>
+            @await Component.InvokeAsync("_CustomerLayoutSidebarPartial")
 
+            <!-- top navigation -->
             @await Component.InvokeAsync("_CustomerLayoutNavbarPartial")
-
+            <!-- /top navigation -->
+            <!-- page content -->
             <div class="right_col" role="main">
                 <div class="">
                     <div class="page-title">
                         <div class="title_left">
-                            <h3>Fixed Sidebar <small> Just add class <strong>menu_fixed</strong></small></h3>
+                          @RenderBody()
                         </div>
                     </div>
                 </div>
             </div>
-
+            <!-- /page content -->
+            <!-- footer content -->
+            <footer>
+                <div class="pull-right">
+                    @@2023Tüm Hakları Saklıdır
+                </div>
+                <div class="clearfix"></div>
+            </footer>
+            <!-- /footer content -->
         </div>
     </div>
+
     @await Component.InvokeAsync("_CustomerScriptLayoutPartial")
-   
 </body>
 </html>
